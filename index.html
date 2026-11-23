@@ -41,13 +41,19 @@
   .hero::after{content:"";position:absolute;inset:-40% -10% auto auto;width:420px;height:420px;
     background:radial-gradient(circle,rgba(230,197,131,.20),transparent 65%);pointer-events:none}
   .kicker{margin:0;font-size:12.5px;letter-spacing:.22em;color:var(--gold);text-transform:uppercase}
-  .hero h1{margin:10px 0 12px;font-size:clamp(24px,3.4vw,40px);line-height:1.15;letter-spacing:.02em}
+  .hero h1{margin:10px 0 12px;font-size:clamp(24px,3.4vw,40px);line-height:1.15;letter-spacing:.02em;padding-right:190px}
   .hero h1 span{display:inline-block;margin-left:14px;font-size:.52em;font-weight:500;
     color:var(--dim);letter-spacing:.12em;vertical-align:middle}
   .hero-meta{display:flex;flex-wrap:wrap;gap:10px}
   .hero-meta span{font-size:12.5px;color:#cfc8e2;padding:5px 11px;border-radius:999px;
     border:1px solid var(--line);background:rgba(255,255,255,.045)}
   .hero-meta span:first-child{color:#0d0b14;background:linear-gradient(135deg,#f3d79c,#d9ab5c);border-color:transparent;font-weight:700}
+  .hero-cta{position:absolute;top:20px;right:22px;z-index:2;display:inline-flex;align-items:center;gap:8px;
+    padding:12px 22px;border-radius:12px;font-size:14px;font-weight:800;text-decoration:none;letter-spacing:.02em;
+    color:#1a1206;background:linear-gradient(135deg,#ffe6a8,#e0b264);
+    box-shadow:0 10px 26px -12px rgba(230,197,131,.95);transition:transform .18s,box-shadow .18s}
+  .hero-cta:hover{transform:translateY(-1px);box-shadow:0 14px 30px -12px rgba(230,197,131,1)}
+  .hero-cta::after{content:"↗";font-size:13px;font-weight:700;opacity:.75}
 
   /* ---------- tabs ---------- */
   .tabs{display:flex;gap:8px;margin:22px 0 16px;flex-wrap:wrap;align-items:center}
@@ -166,10 +172,11 @@
     .page{padding:14px 12px 48px;padding-bottom:calc(48px + env(safe-area-inset-bottom))}
     .hero{padding:16px 16px 18px;border-radius:16px}
     .hero::after{width:280px;height:280px}
-    .hero h1{margin:8px 0 10px}
+    .hero h1{margin:8px 0 10px;padding-right:0}
     .hero h1 span{display:block;margin:6px 0 0;font-size:.5em}
     .hero-meta{gap:7px}
     .hero-meta span{font-size:11.5px;padding:4px 9px}
+    .hero-cta{position:static;margin-top:14px;width:100%;justify-content:center;padding:13px 18px;font-size:14.5px}
     .tabs{gap:7px;margin:16px 0 12px}
     .tab{padding:9px 15px;font-size:13px;border-radius:10px}
     .chips{flex:1 1 100%;justify-content:flex-start}
@@ -209,6 +216,7 @@
       <span>线下赛段 7 天 · 30 场</span>
       <span>全部时间为北京时间</span>
     </div>
+    <a class="hero-cta" href="https://h5.ds.163.com/v1/6afbb7fed0cf400033cd81ff/" target="_blank" rel="noopener">前往预约门票</a>
   </header>
 
   <div class="tabs">
