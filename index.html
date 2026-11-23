@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#08070d">
+<meta name="format-detection" content="telephone=no">
+<title>梦幻西游手游 巅峰联赛 S13 季后赛 · 赛程与晋级图</title>
+<style>
+  :root{
+    --bg:#08070d;
+    --panel:#12101c;
+    --panel-2:#171426;
+    --line:rgba(255,255,255,.09);
+    --txt:#ece9f5;
+    --dim:#8d87a6;
+    --gold:#e6c583;
+    --sw:#ff9a9a;            /* 神威 · 浅红 */
+    --yw:#ffe08a;            /* 勇武 · 浅黄 */
+    --jr:#9ed2ff;            /* 精锐 · 浅蓝 */
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    background:
+      radial-gradient(900px 420px at 12% -8%, rgba(120,80,220,.30), transparent 60%),
+      radial-gradient(760px 380px at 88% -6%, rgba(226,150,50,.20), transparent 62%),
+      var(--bg);
+    color:var(--txt);
+    font-family:"PingFang SC","Microsoft YaHei","Hiragino Sans GB",system-ui,-apple-system,sans-serif;
+    -webkit-font-smoothing:antialiased;
+    -webkit-text-size-adjust:100%;
+    overflow-x:hidden;
+  }
+  .page{max-width:1560px;margin:0 auto;padding:26px 20px 64px}
+
+  /* ---------- hero ---------- */
+  .hero{position:relative;padding:22px 26px 26px;border-radius:20px;
+    background:linear-gradient(135deg,rgba(38,30,66,.92),rgba(18,15,28,.92));
+    border:1px solid var(--line);overflow:hidden}
+  .hero::after{content:"";position:absolute;inset:-40% -10% auto auto;width:420px;height:420px;
+    background:radial-gradient(circle,rgba(230,197,131,.20),transparent 65%);pointer-events:none}
+  .kicker{margin:0;font-size:12.5px;letter-spacing:.22em;color:var(--gold);text-transform:uppercase}
+  .hero h1{margin:10px 0 12px;font-size:clamp(24px,3.4vw,40px);line-height:1.15;letter-spacing:.02em}
+  .hero h1 span{display:inline-block;margin-left:14px;font-size:.52em;font-weight:500;
+    color:var(--dim);letter-spacing:.12em;vertical-align:middle}
+  .hero-meta{display:flex;flex-wrap:wrap;gap:10px}
+  .hero-meta span{font-size:12.5px;color:#cfc8e2;padding:5px 11px;border-radius:999px;
+    border:1px solid var(--line);background:rgba(255,255,255,.045)}
+  .hero-meta span:first-child{color:#0d0b14;background:linear-gradient(135deg,#f3d79c,#d9ab5c);border-color:transparent;font-weight:700}
+
+  /* ---------- tabs ---------- */
+  .tabs{display:flex;gap:8px;margin:22px 0 16px;flex-wrap:wrap;align-items:center}
+  .tab{appearance:none;cursor:pointer;font:inherit;font-size:14px;font-weight:600;
+    padding:10px 20px;border-radius:12px;border:1px solid var(--line);
+    background:var(--panel);color:var(--dim);transition:.18s}
+  .tab:hover{color:var(--txt);border-color:rgba(255,255,255,.2)}
+  .tab.on{color:#100e18;background:linear-gradient(135deg,#f3d79c,#d9ab5c);border-color:transparent;
+    box-shadow:0 6px 18px -6px rgba(230,197,131,.6)}
+  .spacer{flex:1}
+  .chips{display:flex;gap:6px;flex-wrap:wrap}
+  .chip{appearance:none;cursor:pointer;font:inherit;font-size:12.5px;padding:6px 13px;border-radius:999px;
+    border:1px solid var(--line);background:transparent;color:var(--dim);transition:.16s}
+  .chip:hover{color:var(--txt)}
+  .chip.on{color:#0f0d16;font-weight:700;border-color:transparent}
+  .chip.on[data-g="all"]{background:#d6d0e8}
+  .chip.on[data-g="shenwei"]{background:var(--sw)}
+  .chip.on[data-g="yongwu"]{background:var(--yw)}
+  .chip.on[data-g="jingrui"]{background:var(--jr)}
+
+  /* ---------- schedule board ---------- */
+  .board{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:12px;align-items:start}
+  .day{background:linear-gradient(180deg,rgba(24,21,38,.9),rgba(14,12,22,.9));
+    border:1px solid var(--line);border-radius:16px;padding:12px 11px 14px;min-width:0}
+  .day-hd{display:flex;flex-direction:column;gap:2px;padding:2px 4px 10px;border-bottom:1px dashed var(--line);margin-bottom:10px}
+  .day-date{font-size:19px;font-weight:800;letter-spacing:.02em}
+  .day-date small{font-size:12px;font-weight:600;color:var(--dim);margin-left:6px;letter-spacing:.06em}
+  .day-cast{font-size:11.5px;color:var(--gold);opacity:.9}
+  .day.final .day-date{color:var(--gold)}
+  .day.final{border-color:rgba(230,197,131,.38);
+    box-shadow:0 0 0 1px rgba(230,197,131,.14) inset,0 10px 30px -18px rgba(230,197,131,.7)}
+  .day-list{display:flex;flex-direction:column;gap:9px}
+
+  .match{position:relative;border-radius:12px;padding:9px 10px 10px;background:var(--panel-2);
+    border:1px solid var(--line);border-left:3px solid var(--c);overflow:hidden}
+  .match::before{content:"";position:absolute;inset:0;background:linear-gradient(120deg,var(--c),transparent 62%);
+    opacity:.10;pointer-events:none}
+  .m-shenwei{--c:var(--sw);--c-soft:rgba(255,154,154,.42);--c-glow:rgba(255,154,154,.85)}
+  .m-yongwu{--c:var(--yw);--c-soft:rgba(255,224,138,.44);--c-glow:rgba(255,224,138,.85)}
+  .m-jingrui{--c:var(--jr);--c-soft:rgba(158,210,255,.44);--c-glow:rgba(158,210,255,.85)}
+  .m-top{display:flex;align-items:center;gap:6px;margin-bottom:6px}
+  .g-badge{font-size:10.5px;font-weight:800;padding:2px 6px;border-radius:5px;color:#0d0b14;background:var(--c);letter-spacing:.04em}
+  .m-round{font-size:11.5px;color:#c3bcd8;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .m-code{font-size:10px;font-weight:700;color:var(--c);opacity:.75;letter-spacing:.06em}
+  .m-time{display:flex;align-items:center;justify-content:space-between;font-size:12px;
+    font-variant-numeric:tabular-nums;color:#fff;font-weight:700;margin-bottom:7px}
+  .m-time em{font-style:normal;font-size:10px;font-weight:700;color:#0d0b14;background:var(--c);
+    padding:1.5px 6px;border-radius:5px;letter-spacing:.04em}
+  .team{display:flex;align-items:center;gap:6px;font-size:12.5px;padding:3px 0;line-height:1.25}
+  .team i{font-style:normal;font-size:9.5px;font-weight:800;width:16px;height:16px;border-radius:4px;
+    display:grid;place-items:center;flex:0 0 auto}
+  .team.red i{background:rgba(255,92,92,.16);color:#ff8f8f;border:1px solid rgba(255,92,92,.35)}
+  .team.blue i{background:rgba(92,158,255,.14);color:#8fb9ff;border:1px solid rgba(92,158,255,.35)}
+  .team span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .team.tbd span{color:var(--dim);font-style:italic}
+  .vs{color:#5d5775;font-size:10px;padding-left:22px;line-height:1;margin:-1px 0}
+  .empty{font-size:12px;color:#4c4760;text-align:center;padding:16px 0}
+
+  /* ---------- bracket ---------- */
+  .bracket-wrap{background:linear-gradient(180deg,rgba(22,19,34,.92),rgba(12,10,19,.92));
+    border:1px solid var(--line);border-radius:18px;padding:18px 16px 22px}
+  .bracket-scroll{overflow-x:auto;padding-bottom:6px}
+  .bracket{position:relative;margin:0 auto}
+  .bk-lines{position:absolute;inset:0;pointer-events:none}
+  .bk-hd{position:absolute;font-size:11.5px;letter-spacing:.14em;color:#6f6890;font-weight:700;white-space:nowrap}
+  .bk-hd.lose{color:#5f5a78}
+  .bk-card{position:absolute;height:88px;border-radius:12px;padding:8px 10px;
+    background:linear-gradient(160deg,rgba(40,34,61,.96),rgba(20,17,31,.96));
+    border:1px solid rgba(255,255,255,.12);display:flex;flex-direction:column;justify-content:space-between}
+  .bk-card.win{border-color:var(--c-soft);box-shadow:0 0 24px -12px var(--c-glow)}
+  .bk-card.lose{background:linear-gradient(160deg,rgba(32,28,48,.96),rgba(17,15,27,.96));
+    border-color:rgba(255,255,255,.10)}
+  .bk-card.final{border-color:rgba(230,197,131,.6);
+    background:linear-gradient(160deg,rgba(58,45,30,.98),rgba(24,18,14,.98));
+    box-shadow:0 0 30px -12px rgba(230,197,131,.8)}
+  .bk-top{display:flex;align-items:center;gap:6px;font-size:10.5px}
+  .bk-code{font-weight:800;letter-spacing:.06em;color:#0d0b14;background:#cfc8e2;padding:1.5px 5px;border-radius:4px}
+  .bk-card.win .bk-code{background:var(--c)}
+  .bk-card.lose .bk-code{background:var(--c-soft)}
+  .bk-card.final .bk-code{background:linear-gradient(135deg,#f3d79c,#d9ab5c)}
+  .bk-round{color:#a49dbd;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .bk-teams{display:flex;flex-direction:column;gap:2px}
+  .bk-teams b{font-size:12.5px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;line-height:1.35}
+  .bk-teams b.dim{color:#8b85a3;font-weight:500;font-style:italic}
+  .bk-foot{font-size:10px;color:#8b85a3;font-variant-numeric:tabular-nums;letter-spacing:.02em}
+  .bk-card.final .bk-foot{color:var(--gold)}
+  .legend{display:flex;gap:18px;flex-wrap:wrap;font-size:11.5px;color:var(--dim);margin-top:14px;padding-top:12px;border-top:1px dashed var(--line)}
+  .legend b{display:inline-block;width:26px;height:0;border-top:2px solid #6c6488;vertical-align:middle;margin-right:7px}
+  .legend b.dash{border-top-style:dashed}
+
+  .note{margin-top:20px;font-size:12px;color:#6b6584;line-height:1.8}
+  .note code{color:#a29ac0;background:rgba(255,255,255,.05);padding:1px 5px;border-radius:4px}
+  .hide{display:none!important}
+
+  /* ---------- mobile bits ---------- */
+  .daynav{display:none;gap:7px;overflow-x:auto;padding:2px 0 8px;margin:0 0 12px;
+    scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .daynav::-webkit-scrollbar{display:none}
+  .daynav button{flex:0 0 auto;appearance:none;cursor:pointer;font:inherit;line-height:1.2;
+    padding:8px 12px;border-radius:10px;border:1px solid var(--line);background:var(--panel);
+    color:var(--dim);text-align:center;min-width:66px}
+  .daynav button b{display:block;font-size:13px;color:var(--txt);font-weight:700}
+  .daynav button small{display:block;font-size:10.5px;margin-top:2px}
+  .daynav button.on{background:linear-gradient(135deg,#f3d79c,#d9ab5c);border-color:transparent}
+  .daynav button.on b{color:#0d0b14}
+  .daynav button.on small{color:#3a2c10}
+  .scroll-hint{display:none;font-size:11.5px;color:#7b749a;text-align:center;margin:8px 0 0;letter-spacing:.04em}
+
+  @media (max-width:1180px){
+    .board{display:flex;overflow-x:auto;padding-bottom:8px;scroll-snap-type:x proximity;
+      -webkit-overflow-scrolling:touch}
+    .day{flex:0 0 244px;scroll-snap-align:start}
+  }
+
+  @media (max-width:760px){
+    .page{padding:14px 12px 48px;padding-bottom:calc(48px + env(safe-area-inset-bottom))}
+    .hero{padding:16px 16px 18px;border-radius:16px}
+    .hero::after{width:280px;height:280px}
+    .hero h1{margin:8px 0 10px}
+    .hero h1 span{display:block;margin:6px 0 0;font-size:.5em}
+    .hero-meta{gap:7px}
+    .hero-meta span{font-size:11.5px;padding:4px 9px}
+    .tabs{gap:7px;margin:16px 0 12px}
+    .tab{padding:9px 15px;font-size:13px;border-radius:10px}
+    .chips{flex:1 1 100%;justify-content:flex-start}
+    .chip{padding:6px 12px;font-size:12px}
+    .daynav{display:flex}
+    .board{display:block;overflow:visible}
+    .day{display:none;flex:none}
+    .day.on{display:block}
+    .day-date{font-size:18px}
+    .team{font-size:13px}
+    .m-time{font-size:12.5px}
+    .bracket-wrap{padding:12px 10px 16px;border-radius:14px}
+    .bracket-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain}
+    .scroll-hint{display:block}
+    .legend{gap:10px;font-size:11px}
+    .note{font-size:11.5px}
+  }
+
+  @media print{
+    body{background:#fff;color:#111}
+    .tabs{display:none}
+    .hero,.day,.bracket-wrap{background:#fff;border-color:#ccc;box-shadow:none}
+    .match,.bk-card{background:#f7f7f9;border-color:#ddd}
+    .bk-teams b,.m-time{color:#111}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header class="hero">
+    <p class="kicker">《梦幻西游》手游 · 2026 巅峰联赛</p>
+    <h1>S13 季后赛<span>赛程 &amp; 晋级图</span></h1>
+    <div class="hero-meta">
+      <span>赛期 11.30 – 12.06</span>
+      <span>神威 / 勇武 / 精锐 三大组别</span>
+      <span>线下赛段 7 天 · 30 场</span>
+      <span>全部时间为北京时间</span>
+    </div>
+  </header>
+
+  <div class="tabs">
+    <button class="tab on" data-view="schedule">赛程表</button>
+    <button class="tab" data-view="bracket">晋级图</button>
+    <div class="spacer"></div>
+    <div class="chips" id="groupChips"></div>
+  </div>
+
+  <!-- 赛程 -->
+  <section id="view-schedule">
+    <nav class="daynav" id="daynav"></nav>
+    <div class="board" id="board"></div>
+  </section>
+
+  <!-- 晋级图 -->
+  <section id="view-bracket" class="hide">
+    <div class="tabs" style="margin:0 0 14px">
+      <button class="tab on" data-group="shenwei">神威组</button>
+      <button class="tab" data-group="yongwu">勇武组</button>
+      <button class="tab" data-group="jingrui">精锐组</button>
+    </div>
+    <div class="bracket-wrap">
+      <div class="bracket-scroll">
+        <div class="bracket" id="bracket"></div>
+      </div>
+      <p class="scroll-hint">← 左右滑动查看完整晋级图 →</p>
+      <div class="legend">
+        <span><b></b>胜者晋级</span>
+        <span><b class="dash"></b>败者落入败者组</span>
+        <span>BO3 = 三局两胜 · BO1 = 一局定胜负</span>
+      </div>
+    </div>
+  </section>
+
+  <p class="note">
+    数据来源：<code>S13季后赛赛程-带对阵版本-确认版.xlsx</code>（线下赛段 + 三张对阵关系图）。<br>
+    晋级图节点编号与源表一致：A = 第一轮，B = 第二轮 / 胜者组决赛，C = 败者组第三轮，D = 败者组决赛。
+  </p>
+</div>
+
+<script>
+const GROUP = {
+  shenwei: {name:'神威', cls:'m-shenwei', color:'var(--sw)', soft:'rgba(255,154,154,.42)', glow:'rgba(255,154,154,.85)'},
+  yongwu:  {name:'勇武', cls:'m-yongwu',  color:'var(--yw)', soft:'rgba(255,224,138,.44)', glow:'rgba(255,224,138,.85)'},
+  jingrui: {name:'精锐', cls:'m-jingrui', color:'var(--jr)', soft:'rgba(158,210,255,.44)', glow:'rgba(158,210,255,.85)'}
+};
+
+const DAYS = [
+  {date:'11/30', wd:'周一', cast:'10:00 开播', m:[
+    {g:'yongwu',  code:'A2', round:'胜者组第一轮', bo:'BO3', t:'11:00 – 14:00', t1:'瑶池圣地', t2:'倾国倾城'},
+    {g:'jingrui', code:'A2', round:'胜者组第一轮', bo:'BO3', t:'14:00 – 17:00', t1:'再续前缘', t2:'2020'},
+    {g:'shenwei', code:'A2', round:'胜者组第一轮', bo:'BO3', t:'17:00 – 20:00', t1:'山清水秀', t2:'天下无双'},
+    {g:'jingrui', code:'A3', round:'败者组第一轮', bo:'BO1', t:'20:00 – 21:00', t1:'2023', t2:'大美神州'},
+    {g:'jingrui', code:'A4', round:'败者组第一轮', bo:'BO1', t:'21:00 – 22:00', t1:'2022', t2:'情有独钟'}
+  ]},
+  {date:'12/01', wd:'周二', cast:'10:00 开播', m:[
+    {g:'yongwu',  code:'A1', round:'胜者组第一轮', bo:'BO3', t:'11:00 – 14:00', t1:'天下无双', t2:'情有独钟'},
+    {g:'jingrui', code:'A1', round:'胜者组第一轮', bo:'BO3', t:'14:00 – 17:00', t1:'时空之隙', t2:'一吻天荒'},
+    {g:'shenwei', code:'A1', round:'胜者组第一轮', bo:'BO3', t:'17:00 – 20:00', t1:'时空之隙', t2:'紫禁之巅'},
+    {g:'yongwu',  code:'A3', round:'败者组第一轮', bo:'BO1', t:'20:00 – 21:00', t1:'双面伊人', t2:'盛世丰年'},
+    {g:'yongwu',  code:'A4', round:'败者组第一轮', bo:'BO1', t:'21:00 – 22:00', t1:'2019', t2:'一见钟情'}
+  ]},
+  {date:'12/02', wd:'周三', cast:'10:00 开播', m:[
+    {g:'yongwu',  code:'B1', round:'胜者组决赛', bo:'BO3', t:'11:00 – 14:00', t1:'A2胜者', t2:'A1胜者'},
+    {g:'jingrui', code:'B1', round:'胜者组决赛', bo:'BO3', t:'14:00 – 17:00', t1:'A2胜者', t2:'A1胜者'},
+    {g:'shenwei', code:'B1', round:'胜者组决赛', bo:'BO3', t:'17:00 – 20:00', t1:'A2胜者', t2:'A1胜者'},
+    {g:'shenwei', code:'A3', round:'败者组第一轮', bo:'BO1', t:'20:00 – 21:00', t1:'似水流年', t2:'2018'},
+    {g:'shenwei', code:'A4', round:'败者组第一轮', bo:'BO1', t:'21:00 – 22:00', t1:'东海湾', t2:'双生梦'}
+  ]},
+  {date:'12/03', wd:'周四', cast:'13:00 开播', m:[
+    {g:'yongwu',  code:'B2', round:'败者组第二轮', bo:'BO1', t:'14:00 – 15:00', t1:'A2败者', t2:'A3胜者'},
+    {g:'yongwu',  code:'B3', round:'败者组第二轮', bo:'BO1', t:'15:00 – 16:00', t1:'A1败者', t2:'A4胜者'},
+    {g:'jingrui', code:'B2', round:'败者组第二轮', bo:'BO1', t:'16:00 – 17:00', t1:'A2败者', t2:'A3胜者'},
+    {g:'jingrui', code:'B3', round:'败者组第二轮', bo:'BO1', t:'17:00 – 18:00', t1:'A1败者', t2:'A4胜者'},
+    {g:'shenwei', code:'B2', round:'败者组第二轮', bo:'BO1', t:'18:00 – 19:00', t1:'A2败者', t2:'A3胜者'},
+    {g:'shenwei', code:'B3', round:'败者组第二轮', bo:'BO1', t:'19:00 – 20:00', t1:'A1败者', t2:'A4胜者'}
+  ]},
+  {date:'12/04', wd:'周五', cast:'11:00 开播', m:[
+    {g:'yongwu',  code:'C1', round:'败者组第三轮', bo:'BO3', t:'12:00 – 15:00', t1:'B2胜者', t2:'B3胜者'},
+    {g:'jingrui', code:'C1', round:'败者组第三轮', bo:'BO3', t:'15:00 – 18:00', t1:'B2胜者', t2:'B3胜者'},
+    {g:'shenwei', code:'C1', round:'败者组第三轮', bo:'BO3', t:'18:00 – 21:00', t1:'B2胜者', t2:'B3胜者'}
+  ]},
+  {date:'12/05', wd:'周六', cast:'11:00 开播', m:[
+    {g:'yongwu',  code:'D1', round:'败者组决赛', bo:'BO3', t:'12:00 – 15:00', t1:'B1败者', t2:'C1胜者'},
+    {g:'jingrui', code:'D1', round:'败者组决赛', bo:'BO3', t:'15:00 – 18:00', t1:'B1败者', t2:'C1胜者'},
+    {g:'shenwei', code:'D1', round:'败者组决赛', bo:'BO3', t:'18:00 – 21:00', t1:'B1败者', t2:'C1胜者'}
+  ]},
+  {date:'12/06', wd:'周日', cast:'11:00 开播 · 决赛日', final:true, m:[
+    {g:'yongwu',  code:'F', round:'勇武组 · 决赛', bo:'BO3', t:'12:00 – 15:00', t1:'B1胜者', t2:'D1胜者'},
+    {g:'jingrui', code:'F', round:'精锐组 · 决赛', bo:'BO3', t:'15:00 – 18:00', t1:'B1胜者', t2:'D1胜者'},
+    {g:'shenwei', code:'F', round:'神威组 · 决赛', bo:'BO3', t:'18:00 – 21:00', t1:'B1胜者', t2:'D1胜者'}
+  ]}
+];
+
+const BRACKET = {
+  shenwei: {teams:{A1:['时空之隙','紫禁之巅'],A2:['山清水秀','天下无双'],A3:['似水流年','2018'],A4:['东海湾','双生梦']}},
+  yongwu:  {teams:{A1:['天下无双','情有独钟'],A2:['瑶池圣地','倾国倾城'],A3:['双面伊人','盛世丰年'],A4:['2019','一见钟情']}},
+  jingrui: {teams:{A1:['时空之隙','一吻天荒'],A2:['再续前缘','2020'],A3:['2023','大美神州'],A4:['2022','情有独钟']}}
+};
+
+const NODES = [
+  {id:'A1', code:'A1', round:'胜者组第一轮', bo:'BO3', cls:'win',  x:0,   y:44},
+  {id:'A2', code:'A2', round:'胜者组第一轮', bo:'BO3', cls:'win',  x:0,   y:214},
+  {id:'B1', code:'B1', round:'胜者组决赛',   bo:'BO3', cls:'win',  x:240, y:129, t:['A1胜者','A2胜者']},
+  {id:'A3', code:'A3', round:'败者组第一轮', bo:'BO1', cls:'lose', x:0,   y:420},
+  {id:'A4', code:'A4', round:'败者组第一轮', bo:'BO1', cls:'lose', x:0,   y:560},
+  {id:'B2', code:'B2', round:'败者组第二轮', bo:'BO1', cls:'lose', x:240, y:420, t:['A3胜者','A2败者']},
+  {id:'B3', code:'B3', round:'败者组第二轮', bo:'BO1', cls:'lose', x:240, y:560, t:['A4胜者','A1败者']},
+  {id:'C1', code:'C1', round:'败者组第三轮', bo:'BO3', cls:'lose', x:480, y:490, t:['B2胜者','B3胜者']},
+  {id:'D1', code:'D1', round:'败者组决赛',   bo:'BO3', cls:'lose', x:720, y:490, t:['C1胜者','B1败者']},
+  {id:'F',  code:'FINAL', round:'总决赛',    bo:'BO3', cls:'final',x:960, y:336, t:['B1胜者','D1胜者']}
+];
+
+const EDGES = [
+  'M210,88 H225 V173 H240',
+  'M210,258 H225 V173 H240',
+  'M210,464 H240',
+  'M210,604 H240',
+  'M450,464 H465 V534 H480',
+  'M450,604 H465 V534 H480',
+  'M690,534 H720',
+  'M450,173 H930 V380 H960',
+  'M930,534 H945 V380 H960'
+];
+const EDGE_DASH = 'M345,217 V300 H705 V534 H720';
+
+const HEADS = [
+  {x:0,   y:8, txt:'胜者组第一轮'},
+  {x:240, y:8, txt:'胜者组决赛'},
+  {x:480, y:8, txt:'败者组第三轮'},
+  {x:720, y:8, txt:'败者组决赛'},
+  {x:960, y:8, txt:'总决赛'},
+  {x:0,   y:386, txt:'败者组第一轮', lose:true},
+  {x:240, y:386, txt:'败者组第二轮', lose:true}
+];
+
+const CARD_W = 210, CARD_H = 88, CANVAS_W = 1170, CANVAS_H = 668;
+let activeGroup = 'all';
+let activeDay = 0;
+const mqPhone = window.matchMedia('(max-width:760px)');
+const daynavEl = document.getElementById('daynav');
+DAYS.forEach((d,i)=>{
+  const b = document.createElement('button');
+  b.innerHTML = `<b>${d.date}</b><small>${d.wd}</small>`;
+  b.onclick = ()=>{ activeDay = i; renderSchedule(); };
+  daynavEl.appendChild(b);
+});
+if(mqPhone.addEventListener) mqPhone.addEventListener('change', renderSchedule);
+
+/* ---------- 赛程 ---------- */
+const chipsEl = document.getElementById('groupChips');
+[['all','全部'],['shenwei','神威'],['yongwu','勇武'],['jingrui','精锐']].forEach(([g,label],i)=>{
+  const b = document.createElement('button');
+  b.className = 'chip' + (i===0 ? ' on' : '');
+  b.dataset.g = g;
+  b.textContent = label;
+  b.onclick = ()=>{
+    activeGroup = g;
+    [...chipsEl.children].forEach(c=>c.classList.toggle('on', c===b));
+    renderSchedule();
+  };
+  chipsEl.appendChild(b);
+});
+
+function matchHTML(m){
+  const gr = GROUP[m.g];
+  const tbd = v => /胜者|败者/.test(v) ? ' tbd' : '';
+  return `<article class="match ${gr.cls}">
+    <div class="m-top">
+      <span class="g-badge">${gr.name}</span>
+      <span class="m-round">${m.round}</span>
+      <span class="m-code">${m.code}</span>
+    </div>
+    <div class="m-time"><span>${m.t}</span><em>${m.bo}</em></div>
+    <div class="team red${tbd(m.t1)}"><i>红</i><span>${m.t1}</span></div>
+    <div class="vs">vs</div>
+    <div class="team blue${tbd(m.t2)}"><i>蓝</i><span>${m.t2}</span></div>
+  </article>`;
+}
+
+function renderSchedule(){
+  const board = document.getElementById('board');
+  const phone = mqPhone.matches;
+  [...daynavEl.children].forEach((b,i)=>b.classList.toggle('on', i===activeDay));
+  board.innerHTML = DAYS.map((d,i)=>{
+    const list = d.m.filter(m => activeGroup==='all' || m.g===activeGroup);
+    const on = (!phone || i===activeDay) ? ' on' : '';
+    return `<div class="day${d.final?' final':''}${on}">
+      <div class="day-hd">
+        <div class="day-date">${d.date}<small>${d.wd}</small></div>
+        <div class="day-cast">${d.cast}</div>
+      </div>
+      <div class="day-list">${list.length ? list.map(matchHTML).join('') : '<div class="empty">无赛事</div>'}</div>
+    </div>`;
+  }).join('');
+}
+
+/* ---------- 晋级图 ---------- */
+function lookupTime(group, code){
+  for(const d of DAYS){
+    const hit = d.m.find(m => m.g===group && m.code===code);
+    if(hit) return `${d.date} ${hit.t.split('–')[0].trim()}`;
+  }
+  return '';
+}
+
+function renderBracket(group){
+  const host = document.getElementById('bracket');
+  const teams = BRACKET[group].teams;
+  host.style.setProperty('--c-soft', GROUP[group].soft);
+  host.style.setProperty('--c-glow', GROUP[group].glow);
+  host.style.width = CANVAS_W + 'px';
+  host.style.height = CANVAS_H + 'px';
+
+  const paths = EDGES.map(d=>`<path d="${d}" fill="none" stroke="rgba(150,142,190,.55)" stroke-width="1.6"/>`).join('')
+    + `<path d="${EDGE_DASH}" fill="none" stroke="rgba(160,155,185,.45)" stroke-width="1.6" stroke-dasharray="5 5"/>`;
+
+  const heads = HEADS.map(h=>`<div class="bk-hd${h.lose?' lose':''}" style="left:${h.x}px;top:${h.y}px">${h.txt}</div>`).join('');
+
+  const cards = NODES.map(n=>{
+    const t = n.t || teams[n.id];
+    const line = v => `<b class="${/胜者|败者/.test(v)?'dim':''}">${v}</b>`;
+    const when = lookupTime(group, n.code === 'FINAL' ? 'F' : n.code);
+    return `<div class="bk-card ${n.cls}" style="left:${n.x}px;top:${n.y}px;width:${CARD_W}px">
+      <div class="bk-top"><span class="bk-code">${n.code}</span><span class="bk-round">${n.round}</span></div>
+      <div class="bk-teams">${line(t[0])}${line(t[1])}</div>
+      <div class="bk-foot">${when ? when + ' · ' : ''}${n.bo}</div>
+    </div>`;
+  }).join('');
+
+  host.innerHTML = `<svg class="bk-lines" width="${CANVAS_W}" height="${CANVAS_H}" viewBox="0 0 ${CANVAS_W} ${CANVAS_H}">${paths}</svg>${heads}${cards}`;
+}
+
+/* ---------- 视图切换 ---------- */
+document.querySelectorAll('.tab[data-view]').forEach(btn=>{
+  btn.onclick = ()=>{
+    document.querySelectorAll('.tab[data-view]').forEach(b=>b.classList.toggle('on', b===btn));
+    const v = btn.dataset.view;
+    document.getElementById('view-schedule').classList.toggle('hide', v!=='schedule');
+    document.getElementById('view-bracket').classList.toggle('hide', v!=='bracket');
+    document.getElementById('groupChips').classList.toggle('hide', v!=='schedule');
+    if(v==='bracket') renderBracket(currentGroupTab());
+  };
+});
+let _groupTab = 'shenwei';
+const currentGroupTab = ()=> _groupTab;
+document.querySelectorAll('.tab[data-group]').forEach(btn=>{
+  btn.onclick = ()=>{
+    _groupTab = btn.dataset.group;
+    document.querySelectorAll('.tab[data-group]').forEach(b=>b.classList.toggle('on', b===btn));
+    renderBracket(_groupTab);
+  };
+});
+
+renderSchedule();
+renderBracket(_groupTab);
+</script>
+</body>
+</html>
